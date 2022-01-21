@@ -8,6 +8,7 @@ const Button = ({handleClick, text}) => (
 
 const Statistics = ({good, neutral, bad}) => (
   <div>
+    <p>all {total(good, neutral, bad)}</p>
     <p>average {average(good,neutral,bad)}</p>
     <p>positive {positive(good, neutral, bad)} %</p>
     </div>
