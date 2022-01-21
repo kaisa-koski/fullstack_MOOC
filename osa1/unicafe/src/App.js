@@ -6,13 +6,23 @@ const Button = ({handleClick, text}) => (
   </button>
 ) 
 
-const Statistics = ({good, neutral, bad}) => (
+const Statistics = ({good, neutral, bad}) => {
+  let sum = total(good, neutral, bad)
+  if (sum === 0) {
+    return (
+      <div>
+        No feedback given
+      </div>
+    )
+  }
+  return (
   <div>
-    <p>all {total(good, neutral, bad)}</p>
+    <p>all {sum}</p>
     <p>average {average(good,neutral,bad)}</p>
     <p>positive {positive(good, neutral, bad)} %</p>
     </div>
 )
+}
 
 const total = (p1, p2, p3) => (p1 + p2 + p3)
 
@@ -36,8 +46,6 @@ const App = () => {
 const [good, setGood] = useState(0)
 const [neutral, setNeutral] = useState(0)
 const [bad, setBad] = useState(0)
-
-
 
 
   return (
