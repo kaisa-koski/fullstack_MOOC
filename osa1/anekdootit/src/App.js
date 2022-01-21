@@ -21,25 +21,31 @@ const App = () => {
 
   const [selected, setSelected] = useState(getRndInt(0, anecdotes.length))
   const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
-  console.log('Taulukko luotu', votes)
+  const [mostVoted, setMostVoted] = useState(0)
+  const [mostVotes, setMostVotes] = useState(0)
   
   const copyVotes = [...votes]
   
-  const addVote = (monesko) => {
-    console.log('Ennen ääntä votes:', votes )
-    console.log('Ennen ääntä copyvotes:', copyVotes )
-    copyVotes[monesko] += 1
-    console.log('Jälkeen votes:', votes )
-    console.log('Jälkeen copyvotes:', copyVotes )
+  const addVote = (iNum) => { 
+    copyVotes[iNum] += 1
     setVotes(copyVotes)
+    console.log(votes, copyVotes)
+    let voteAmount = copyVotes[iNum]
+    if (voteAmount > mostVotes) {
+        setMostVoted(iNum)
+        setMostVotes(voteAmount)
+      }
   }
 
   return (
     <div>
-     <h4>{anecdotes[selected]}</h4>
-     <Button handleClick={() =>addVote(selected)} text={'vote'} />
-     <Button handleClick={()=>setSelected(getRndInt(0, anecdotes.length))}
-      text={'next anecdote'} />
+      <h2>Anecdote of the day</h2>
+      <p><strong>{anecdotes[selected]}</strong></p>
+      <Button handleClick={() =>addVote(selected)} text={'vote'} />
+      <Button handleClick={()=>setSelected(getRndInt(0, anecdotes.length))} text={'next anecdote'} />
+      <h2>Anecdote with most likes</h2>
+      <p><strong>{anecdotes[mostVoted]}</strong></p>
+      <p>has {mostVotes} votes</p>
     </div>
   )
 }
