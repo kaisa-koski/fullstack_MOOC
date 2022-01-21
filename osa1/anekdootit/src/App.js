@@ -1,9 +1,7 @@
 import React, { useState } from 'react' 
 
 const Button = ({handleClick, text}) => (
-  <div>
     <button onClick={handleClick}> {text} </button>
-  </div>
 )
 
 const getRndInt = (min, max) => {
@@ -21,13 +19,25 @@ const App = () => {
     'Plan to throw one (implementation) away; you will, anyhow.'
   ]
 
-  const [selected, setSelected] = useState(0)
-
+  const [selected, setSelected] = useState(getRndInt(0, anecdotes.length))
+  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
+  console.log('Taulukko luotu', votes)
   
+  const copyVotes = [...votes]
+  
+  const addVote = (monesko) => {
+    console.log('Ennen ääntä votes:', votes )
+    console.log('Ennen ääntä copyvotes:', copyVotes )
+    copyVotes[monesko] += 1
+    console.log('Jälkeen votes:', votes )
+    console.log('Jälkeen copyvotes:', copyVotes )
+    setVotes(copyVotes)
+  }
 
   return (
     <div>
      <h4>{anecdotes[selected]}</h4>
+     <Button handleClick={() =>addVote(selected)} text={'vote'} />
      <Button handleClick={()=>setSelected(getRndInt(0, anecdotes.length))}
       text={'next anecdote'} />
     </div>
