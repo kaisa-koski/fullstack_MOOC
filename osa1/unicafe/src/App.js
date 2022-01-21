@@ -17,12 +17,18 @@ const Statistics = ({good, neutral, bad}) => {
   }
   return (
   <div>
-    <p>all {sum}</p>
-    <p>average {average(good,neutral,bad)}</p>
-    <p>positive {positive(good, neutral, bad)} %</p>
-    </div>
-)
+    <StatisticLine text={'good'} value={good} />
+    <StatisticLine text={'neutral'} value={neutral} />
+    <StatisticLine text={'bad'} value={bad} />  
+    <StatisticLine text={'all'} value={sum} />
+    <StatisticLine text={'average'} value={average(good,neutral,bad)} />  
+    <StatisticLine text={'positive'} value={positive(good,neutral,bad)} extra={'%'} />
+    </div>)
 }
+
+const StatisticLine =({text, value, extra}) => (
+    <p>{text} {value} {extra}</p>
+)
 
 const total = (p1, p2, p3) => (p1 + p2 + p3)
 
@@ -55,9 +61,6 @@ const [bad, setBad] = useState(0)
       <Button handleClick={() => setNeutral(neutral + 1)} text={'neutral'} />
       <Button handleClick={() => setBad(bad + 1)} text={'bad'} />
       <h1>statistics</h1>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
       <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   )
