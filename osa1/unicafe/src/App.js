@@ -16,18 +16,23 @@ const Statistics = ({good, neutral, bad}) => {
     )
   }
   return (
-  <div>
-    <StatisticLine text={'good'} value={good} />
-    <StatisticLine text={'neutral'} value={neutral} />
-    <StatisticLine text={'bad'} value={bad} />  
-    <StatisticLine text={'all'} value={sum} />
-    <StatisticLine text={'average'} value={average(good,neutral,bad)} />  
-    <StatisticLine text={'positive'} value={positive(good,neutral,bad)} extra={'%'} />
-    </div>)
+  <table>
+    <tbody>
+      <StatisticLine text={'good'} value={good} />
+      <StatisticLine text={'neutral'} value={neutral} />
+      <StatisticLine text={'bad'} value={bad} />  
+      <StatisticLine text={'all'} value={sum} />
+      <StatisticLine text={'average'} value={average(good,neutral,bad)} />  
+      <StatisticLine text={'positive'} value={positive(good,neutral,bad)} extra={'%'} />
+    </tbody>
+    </table>)
 }
 
 const StatisticLine =({text, value, extra}) => (
-    <p>{text} {value} {extra}</p>
+  <tr>  
+    <td>{text}</td>
+    <td>{value} {extra}</td> 
+  </tr>
 )
 
 const total = (p1, p2, p3) => (p1 + p2 + p3)
