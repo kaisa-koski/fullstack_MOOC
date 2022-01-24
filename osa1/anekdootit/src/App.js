@@ -1,11 +1,34 @@
-import React, { useState } from 'react' 
+import React, { useState } from 'react'
 
-const Button = ({handleClick, text}) => (
-    <button onClick={handleClick}> {text} </button>
+const Button = ({ handleClick, text }) => (
+  <button onClick={handleClick}> {text} </button>
 )
 
 const getRndInt = (min, max) => {
-  return Math.floor(Math.random() * (max - min) ) + min;
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+const Votes = ({ list, iNum, voteAmount }) => {
+  if (voteAmount === 0) {
+    return (
+      <div> <h2>Anecdote with most likes</h2>
+        <p>no votes</p></div>)
+  }
+  if (voteAmount === 1)
+    return (
+      <div>
+        <h2>Anecdote with most likes</h2>
+        <p><strong>{list[iNum]}</strong></p>
+        <p>has {voteAmount} vote</p>
+      </div>
+    )
+  return (
+    <div>
+      <h2>Anecdote with most likes</h2>
+      <p><strong>{list[iNum]}</strong></p>
+      <p>has {voteAmount} votes</p>
+    </div>
+  )
 }
 
 const App = () => {
@@ -23,29 +46,26 @@ const App = () => {
   const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
   const [mostVoted, setMostVoted] = useState(0)
   const [mostVotes, setMostVotes] = useState(0)
-  
+
   const copyVotes = [...votes]
-  
-  const addVote = (iNum) => { 
+
+  const addVote = (iNum) => {
     copyVotes[iNum] += 1
     setVotes(copyVotes)
-    console.log(votes, copyVotes)
     let voteAmount = copyVotes[iNum]
     if (voteAmount > mostVotes) {
-        setMostVoted(iNum)
-        setMostVotes(voteAmount)
-      }
+      setMostVoted(iNum)
+      setMostVotes(voteAmount)
+    }
   }
 
   return (
     <div>
       <h2>Anecdote of the day</h2>
       <p><strong>{anecdotes[selected]}</strong></p>
-      <Button handleClick={() =>addVote(selected)} text={'vote'} />
-      <Button handleClick={()=>setSelected(getRndInt(0, anecdotes.length))} text={'next anecdote'} />
-      <h2>Anecdote with most likes</h2>
-      <p><strong>{anecdotes[mostVoted]}</strong></p>
-      <p>has {mostVotes} votes</p>
+      <Button handleClick={() => addVote(selected)} text={'vote'} />
+      <Button handleClick={() => setSelected(getRndInt(0, anecdotes.length))} text={'next anecdote'} />
+      <Votes list={anecdotes} iNum={mostVoted} voteAmount={mostVotes} />
     </div>
   )
 }
