@@ -10,31 +10,34 @@ const App = () => {
   const [countries, setCountries] = useState([])
   const [newSearch, setNewSearch] = useState('')
   const [showAll, setShowAll] = useState(true)
-  //const [matchingCountries, setMatchingCountries] = useState([])
 
   useEffect(() => { 
     axios.get('https://restcountries.com/v3.1/all')
     .then(response => {
       setCountries(response.data)
-      console.log(response.data)
     })
   }, [])
 
   const handleSearchChange = event => {
+    event.preventDefault()
     setNewSearch(event.target.value)
     setShowAll(false)
   }
 
+  const showCountry = (maa) => {
+    setNewSearch(maa)
+  } 
+
   const matchingCountries = showAll
     ? countries
     : countries.filter(country =>
-      country.name.common.toLowerCase().includes(newSearch))
+      country.name.common.toLowerCase().includes(newSearch.toLowerCase()))
 
   return (
     <div>
       find countries
       <Filter filter={newSearch} handleFilterChange={handleSearchChange}/>
-      <Matches matches={matchingCountries} />
+      <Matches matches={matchingCountries} handleClick={showCountry} />
     </div>
   )
 }

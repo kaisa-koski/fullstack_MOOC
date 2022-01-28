@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Matches = ({ matches, handleMatchesChange }) => {
+const Matches = ({ matches, handleClick }) => {
     if (matches.length > 10)
         return (
             <div>
@@ -11,7 +11,11 @@ const Matches = ({ matches, handleMatchesChange }) => {
         return (
             <ul>
                 {matches.map(country =>
-                    <li key={country.ccn3}>{country.name.common}</li>)}
+                    <li key={country.ccn3}>
+                        {country.name.common}
+                        <button onClick={()=>handleClick(country.name.common)}>
+                            show </button>
+                    </li>)}
             </ul>
         )
     if (matches.length === 1) {
@@ -30,7 +34,7 @@ const Matches = ({ matches, handleMatchesChange }) => {
                     {languages.map(language =>
                         <li key={language}>{language}</li>)}
                 </ul>
-                 <img src={country.flags.png} alt='Flag'/>      
+                <img src={country.flags.png} alt='Flag' />
             </div>
         )
     }
