@@ -29,7 +29,7 @@ const App = () => {
   } 
 
   const matchingCountries = showAll
-    ? countries
+    ? []
     : countries.filter(country =>
       country.name.common.toLowerCase().includes(newSearch.toLowerCase()))
 

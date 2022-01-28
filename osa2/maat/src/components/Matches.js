@@ -1,4 +1,5 @@
 import React from 'react'
+import Weather from './Weather'
 
 const Matches = ({ matches, handleClick }) => {
     if (matches.length > 10)
@@ -35,6 +36,7 @@ const Matches = ({ matches, handleClick }) => {
                         <li key={language}>{language}</li>)}
                 </ul>
                 <img src={country.flags.png} alt='Flag' />
+                <Weather city={country.capital}/>
             </div>
         )
     }
